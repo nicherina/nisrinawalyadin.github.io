@@ -1,0 +1,1013 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Nisrina Walyadin — EV Data Portfolio</title>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400&family=Syne:wght@400;600;700;800&display=swap" rel="stylesheet"/>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:         #070C14;
+      --bg2:        #0D1520;
+      --bg3:        #111D2E;
+      --accent:     #00E5FF;
+      --accent2:    #FF3D57;
+      --accent3:    #39FF8F;
+      --text:       #E8EDF5;
+      --muted:      #6B7FA3;
+      --border:     rgba(0,229,255,0.15);
+      --card:       rgba(13,21,32,0.85);
+      --glow:       0 0 40px rgba(0,229,255,0.12);
+      --font-head:  'Syne', sans-serif;
+      --font-mono:  'Space Mono', monospace;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--font-mono);
+      font-size: 14px;
+      line-height: 1.7;
+      overflow-x: hidden;
+    }
+
+    /* ── Background grid ── */
+    body::before {
+      content: '';
+      position: fixed; inset: 0; z-index: 0;
+      background-image:
+        linear-gradient(rgba(0,229,255,0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0,229,255,0.03) 1px, transparent 1px);
+      background-size: 60px 60px;
+      pointer-events: none;
+    }
+
+    /* ── Glowing orbs ── */
+    .orb {
+      position: fixed; border-radius: 50%;
+      filter: blur(120px); pointer-events: none; z-index: 0;
+    }
+    .orb-1 {
+      width: 500px; height: 500px;
+      background: rgba(0,229,255,0.06);
+      top: -100px; left: -100px;
+    }
+    .orb-2 {
+      width: 400px; height: 400px;
+      background: rgba(255,61,87,0.05);
+      bottom: 10%; right: -100px;
+    }
+    .orb-3 {
+      width: 300px; height: 300px;
+      background: rgba(57,255,143,0.04);
+      top: 50%; left: 40%;
+    }
+
+    /* ── Layout ── */
+    main { position: relative; z-index: 1; }
+    .container { max-width: 1100px; margin: 0 auto; padding: 0 32px; }
+
+    /* ── Nav ── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      padding: 16px 32px;
+      display: flex; align-items: center; justify-content: space-between;
+      background: rgba(7,12,20,0.85);
+      backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--border);
+    }
+    .nav-logo {
+      font-family: var(--font-head);
+      font-weight: 800; font-size: 18px;
+      color: var(--accent); letter-spacing: -0.5px;
+    }
+    .nav-links { display: flex; gap: 32px; }
+    .nav-links a {
+      color: var(--muted); text-decoration: none;
+      font-size: 12px; letter-spacing: 1px; text-transform: uppercase;
+      transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--accent); }
+
+    /* ── Hero ── */
+    .hero {
+      min-height: 100vh;
+      display: flex; flex-direction: column;
+      justify-content: center; padding-top: 80px;
+    }
+    .hero-tag {
+      display: inline-flex; align-items: center; gap: 8px;
+      font-size: 11px; letter-spacing: 2px; text-transform: uppercase;
+      color: var(--accent); margin-bottom: 24px;
+    }
+    .hero-tag::before {
+      content: '';
+      display: block; width: 32px; height: 1px;
+      background: var(--accent);
+    }
+    .hero h1 {
+      font-family: var(--font-head);
+      font-size: clamp(42px, 7vw, 84px);
+      font-weight: 800; line-height: 1.0;
+      letter-spacing: -2px;
+      margin-bottom: 8px;
+    }
+    .hero h1 span {
+      -webkit-text-stroke: 1px var(--accent);
+      color: transparent;
+    }
+    .hero-sub {
+      font-family: var(--font-head);
+      font-size: clamp(18px, 3vw, 28px);
+      font-weight: 600; color: var(--muted);
+      margin-bottom: 32px;
+    }
+    .hero-desc {
+      max-width: 540px;
+      color: var(--muted); font-size: 13px;
+      line-height: 1.8; margin-bottom: 48px;
+    }
+    .hero-cta {
+      display: flex; gap: 16px; flex-wrap: wrap;
+    }
+    .btn {
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 12px 28px; font-family: var(--font-mono);
+      font-size: 12px; letter-spacing: 1px; text-transform: uppercase;
+      text-decoration: none; border-radius: 2px;
+      transition: all 0.25s; cursor: pointer;
+    }
+    .btn-primary {
+      background: var(--accent); color: var(--bg);
+      font-weight: 700; border: none;
+    }
+    .btn-primary:hover {
+      background: #fff; transform: translateY(-2px);
+      box-shadow: 0 8px 30px rgba(0,229,255,0.3);
+    }
+    .btn-ghost {
+      background: transparent; color: var(--text);
+      border: 1px solid var(--border);
+    }
+    .btn-ghost:hover {
+      border-color: var(--accent); color: var(--accent);
+      transform: translateY(-2px);
+    }
+
+    /* Scroll indicator */
+    .scroll-hint {
+      position: absolute; bottom: 40px; left: 50%;
+      transform: translateX(-50%);
+      display: flex; flex-direction: column; align-items: center;
+      gap: 8px; color: var(--muted); font-size: 10px;
+      letter-spacing: 2px; text-transform: uppercase;
+      animation: bounce 2s infinite;
+    }
+    .scroll-hint::after {
+      content: ''; display: block;
+      width: 1px; height: 40px;
+      background: linear-gradient(to bottom, var(--muted), transparent);
+    }
+    @keyframes bounce {
+      0%, 100% { transform: translateX(-50%) translateY(0); }
+      50% { transform: translateX(-50%) translateY(6px); }
+    }
+
+    /* ── Stats bar ── */
+    .stats-bar {
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+      padding: 32px 0;
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 0;
+    }
+    .stat-item {
+      padding: 0 32px;
+      border-right: 1px solid var(--border);
+    }
+    .stat-item:first-child { padding-left: 0; }
+    .stat-item:last-child { border-right: none; }
+    .stat-num {
+      font-family: var(--font-head);
+      font-size: 36px; font-weight: 800;
+      color: var(--accent); line-height: 1;
+      margin-bottom: 4px;
+    }
+    .stat-label {
+      font-size: 11px; color: var(--muted);
+      letter-spacing: 1px; text-transform: uppercase;
+    }
+
+    /* ── Section ── */
+    section { padding: 100px 0; }
+    .section-tag {
+      font-size: 10px; letter-spacing: 3px; text-transform: uppercase;
+      color: var(--accent); margin-bottom: 12px;
+      display: flex; align-items: center; gap: 12px;
+    }
+    .section-tag::after {
+      content: ''; flex: 1; max-width: 60px;
+      height: 1px; background: var(--accent);
+    }
+    .section-title {
+      font-family: var(--font-head);
+      font-size: clamp(28px, 4vw, 48px);
+      font-weight: 800; letter-spacing: -1px;
+      line-height: 1.1; margin-bottom: 16px;
+    }
+    .section-desc {
+      color: var(--muted); max-width: 560px;
+      font-size: 13px; line-height: 1.8;
+      margin-bottom: 60px;
+    }
+
+    /* ── Project cards ── */
+    .project-card {
+      border: 1px solid var(--border);
+      border-radius: 4px; overflow: hidden;
+      background: var(--card);
+      backdrop-filter: blur(10px);
+      margin-bottom: 48px;
+      transition: border-color 0.3s, box-shadow 0.3s;
+    }
+    .project-card:hover {
+      border-color: var(--accent);
+      box-shadow: var(--glow);
+    }
+    .project-header {
+      padding: 32px 40px;
+      border-bottom: 1px solid var(--border);
+      display: flex; justify-content: space-between;
+      align-items: flex-start; gap: 24px;
+      flex-wrap: wrap;
+    }
+    .project-num {
+      font-size: 11px; letter-spacing: 2px;
+      text-transform: uppercase; color: var(--accent);
+      margin-bottom: 8px;
+    }
+    .project-title {
+      font-family: var(--font-head);
+      font-size: 24px; font-weight: 700;
+      letter-spacing: -0.5px; margin-bottom: 8px;
+    }
+    .project-subtitle {
+      color: var(--muted); font-size: 13px;
+    }
+    .project-tags {
+      display: flex; gap: 8px; flex-wrap: wrap;
+    }
+    .tag {
+      padding: 4px 12px; border-radius: 2px;
+      font-size: 10px; letter-spacing: 1px; text-transform: uppercase;
+      border: 1px solid var(--border); color: var(--muted);
+    }
+    .tag.accent { border-color: var(--accent); color: var(--accent); }
+    .tag.red { border-color: var(--accent2); color: var(--accent2); }
+    .tag.green { border-color: var(--accent3); color: var(--accent3); }
+
+    .project-body { padding: 40px; }
+    .project-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 32px; margin-bottom: 40px;
+    }
+
+    /* ── Analysis blocks ── */
+    .analysis-block {
+      background: rgba(0,0,0,0.3);
+      border: 1px solid var(--border);
+      border-radius: 4px; padding: 28px;
+    }
+    .analysis-block h4 {
+      font-family: var(--font-head);
+      font-size: 14px; font-weight: 700;
+      color: var(--accent); margin-bottom: 16px;
+      display: flex; align-items: center; gap: 8px;
+    }
+    .analysis-block p {
+      font-size: 12px; color: var(--muted);
+      line-height: 1.8;
+    }
+
+    /* ── Visual placeholder (charts) ── */
+    .chart-area {
+      background: rgba(0,0,0,0.4);
+      border: 1px solid var(--border);
+      border-radius: 4px; padding: 32px;
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      min-height: 260px; position: relative;
+      overflow: hidden;
+    }
+    .chart-area::before {
+      content: '';
+      position: absolute; inset: 0;
+      background: repeating-linear-gradient(
+        0deg, transparent, transparent 39px,
+        rgba(0,229,255,0.04) 39px, rgba(0,229,255,0.04) 40px
+      );
+    }
+
+    /* Animated bar chart */
+    .bar-chart {
+      display: flex; align-items: flex-end;
+      gap: 8px; height: 160px; width: 100%;
+      position: relative; z-index: 1;
+    }
+    .bar-group { display: flex; flex-direction: column; align-items: center; flex: 1; gap: 4px; }
+    .bar {
+      width: 100%; border-radius: 2px 2px 0 0;
+      animation: growUp 1.2s ease-out forwards;
+      transform-origin: bottom;
+    }
+    .bar-label { font-size: 9px; color: var(--muted); letter-spacing: 0.5px; }
+    @keyframes growUp {
+      from { transform: scaleY(0); opacity: 0; }
+      to   { transform: scaleY(1); opacity: 1; }
+    }
+
+    /* Map visual */
+    .map-visual {
+      position: relative; z-index: 1;
+      width: 100%; height: 180px;
+    }
+    .map-dot {
+      position: absolute; border-radius: 50%;
+      animation: pulse 2s infinite;
+    }
+    @keyframes pulse {
+      0%, 100% { transform: scale(1); opacity: 0.8; }
+      50% { transform: scale(1.3); opacity: 0.4; }
+    }
+
+    /* Line chart */
+    .line-chart { position: relative; z-index: 1; width: 100%; height: 160px; }
+
+    /* ── Finding cards ── */
+    .findings-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px; margin-top: 40px;
+    }
+    .finding-card {
+      background: rgba(0,0,0,0.3);
+      border: 1px solid var(--border);
+      border-radius: 4px; padding: 24px;
+      position: relative; overflow: hidden;
+    }
+    .finding-card::before {
+      content: '';
+      position: absolute; top: 0; left: 0;
+      width: 3px; height: 100%;
+    }
+    .finding-card.p1::before { background: var(--accent); }
+    .finding-card.p3::before { background: var(--accent2); }
+    .finding-card.both::before { background: var(--accent3); }
+    .finding-num {
+      font-family: var(--font-head);
+      font-size: 28px; font-weight: 800;
+      line-height: 1; margin-bottom: 4px;
+    }
+    .finding-card.p1 .finding-num { color: var(--accent); }
+    .finding-card.p3 .finding-num { color: var(--accent2); }
+    .finding-card.both .finding-num { color: var(--accent3); }
+    .finding-desc { font-size: 11px; color: var(--muted); line-height: 1.6; }
+
+    /* ── Comparison table ── */
+    .compare-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 40px;
+    }
+    .compare-table th {
+      font-family: var(--font-head);
+      font-size: 12px; font-weight: 700;
+      padding: 16px 24px;
+      text-align: left;
+      border-bottom: 1px solid var(--border);
+      color: var(--muted);
+      letter-spacing: 1px; text-transform: uppercase;
+    }
+    .compare-table th:nth-child(2) { color: var(--accent); }
+    .compare-table th:nth-child(3) { color: var(--accent2); }
+    .compare-table td {
+      padding: 14px 24px; font-size: 12px;
+      border-bottom: 1px solid rgba(255,255,255,0.04);
+      vertical-align: top;
+    }
+    .compare-table tr:hover td { background: rgba(0,229,255,0.02); }
+    .compare-table td:first-child { color: var(--muted); }
+    .compare-table td:nth-child(2) { color: var(--text); }
+    .compare-table td:nth-child(3) { color: var(--text); }
+
+    /* ── Tech stack ── */
+    .tech-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+      gap: 12px; margin-top: 40px;
+    }
+    .tech-item {
+      border: 1px solid var(--border);
+      border-radius: 4px; padding: 16px;
+      text-align: center;
+      transition: all 0.2s;
+    }
+    .tech-item:hover {
+      border-color: var(--accent);
+      background: rgba(0,229,255,0.04);
+      transform: translateY(-2px);
+    }
+    .tech-icon { font-size: 24px; margin-bottom: 8px; }
+    .tech-name {
+      font-family: var(--font-head);
+      font-size: 12px; font-weight: 700;
+      margin-bottom: 2px;
+    }
+    .tech-use { font-size: 10px; color: var(--muted); }
+
+    /* ── About / Contact ── */
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 60px; align-items: start;
+    }
+    .contact-links { margin-top: 32px; display: flex; flex-direction: column; gap: 12px; }
+    .contact-link {
+      display: flex; align-items: center; gap: 12px;
+      padding: 14px 20px;
+      border: 1px solid var(--border); border-radius: 4px;
+      text-decoration: none; color: var(--text);
+      font-size: 12px; transition: all 0.2s;
+    }
+    .contact-link:hover {
+      border-color: var(--accent);
+      color: var(--accent);
+      transform: translateX(4px);
+    }
+    .contact-icon { font-size: 16px; }
+    .skill-list { display: flex; flex-direction: column; gap: 12px; margin-top: 24px; }
+    .skill-row { display: flex; flex-direction: column; gap: 4px; }
+    .skill-name { font-size: 11px; color: var(--muted); letter-spacing: 1px; text-transform: uppercase; }
+    .skill-bar-bg {
+      height: 3px; background: rgba(255,255,255,0.08);
+      border-radius: 2px; overflow: hidden;
+    }
+    .skill-bar-fill {
+      height: 100%; border-radius: 2px;
+      animation: fillBar 1.5s ease-out forwards;
+      transform-origin: left;
+    }
+    @keyframes fillBar {
+      from { transform: scaleX(0); }
+      to   { transform: scaleX(1); }
+    }
+
+    /* ── Footer ── */
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 32px 0; text-align: center;
+      color: var(--muted); font-size: 11px;
+      letter-spacing: 1px;
+    }
+
+    /* ── Animations on scroll ── */
+    .fade-in {
+      opacity: 0; transform: translateY(24px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
+    }
+    .fade-in.visible {
+      opacity: 1; transform: translateY(0);
+    }
+
+    /* ── Responsive ── */
+    @media (max-width: 768px) {
+      .stats-bar { grid-template-columns: repeat(2, 1fr); }
+      .project-grid, .findings-grid, .about-grid { grid-template-columns: 1fr; }
+      .compare-table { font-size: 11px; }
+      .compare-table th, .compare-table td { padding: 10px 12px; }
+      .nav-links { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="orb orb-1"></div>
+<div class="orb orb-2"></div>
+<div class="orb orb-3"></div>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">NW // EV Portfolio</div>
+  <div class="nav-links">
+    <a href="#projects">Projects</a>
+    <a href="#findings">Findings</a>
+    <a href="#stack">Tech Stack</a>
+    <a href="#about">About</a>
+  </div>
+</nav>
+
+<main>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="container">
+    <div class="hero-tag">EV Infrastructure · Data Analytics · eMobility</div>
+    <h1>Nisrina<br/><span>Walyadin</span></h1>
+    <div class="hero-sub">Data & BI Analyst — EV Portfolio</div>
+    <p class="hero-desc">
+      Two end-to-end data projects analysing Germany's EV charging infrastructure
+      and forecasting future adoption — combining geospatial clustering,
+      time-series forecasting, and Power BI dashboards.
+    </p>
+    <div class="hero-cta">
+      <a href="#projects" class="btn btn-primary">⚡ View Projects</a>
+      <a href="https://github.com/nisrinawalyadin" target="_blank" class="btn btn-ghost">→ GitHub</a>
+      <a href="mailto:nisrinawalyadin@gmail.com" class="btn btn-ghost">✉ Contact</a>
+    </div>
+  </div>
+  <div class="scroll-hint">scroll</div>
+</section>
+
+<!-- STATS BAR -->
+<div class="container">
+  <div class="stats-bar fade-in">
+    <div class="stat-item">
+      <div class="stat-num">30K+</div>
+      <div class="stat-label">EV Stations Analysed</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-num">7</div>
+      <div class="stat-label">European Countries</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-num">3</div>
+      <div class="stat-label">Forecast Models</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-num">2029</div>
+      <div class="stat-label">Forecast Horizon</div>
+    </div>
+  </div>
+</div>
+
+<!-- PROJECTS -->
+<section id="projects">
+  <div class="container">
+    <div class="section-tag">Portfolio</div>
+    <h2 class="section-title">Two Perspectives.<br/>One Story.</h2>
+    <p class="section-desc">
+      Supply and demand — two sides of the same EV infrastructure challenge.
+      Project 1 maps where charging exists today. Project 2 predicts how fast demand will grow.
+    </p>
+
+    <!-- PROJECT 1 -->
+    <div class="project-card fade-in">
+      <div class="project-header">
+        <div>
+          <div class="project-num">Project 01 — Supply Analysis</div>
+          <div class="project-title">EV Charging Infrastructure Analysis</div>
+          <div class="project-subtitle">Where is the charging network today — and where are the gaps?</div>
+        </div>
+        <div class="project-tags">
+          <span class="tag accent">K-Means Clustering</span>
+          <span class="tag accent">Geospatial</span>
+          <span class="tag">Python</span>
+          <span class="tag">Scikit-learn</span>
+          <span class="tag">Folium</span>
+          <span class="tag">Power BI</span>
+        </div>
+      </div>
+      <div class="project-body">
+        <div class="project-grid">
+
+          <!-- Chart: speed distribution -->
+          <div class="analysis-block">
+            <h4>⚡ Charger Speed Distribution</h4>
+            <div class="chart-area" style="min-height:200px;padding:0;overflow:hidden;">
+              <img src="porto/ev_charging_portfolio/outputs/01_eda_overview.png" alt="Charger Speed Distribution" style="width:100%;height:100%;object-fit:contain;border-radius:8px;">
+            </div>
+            <p style="margin-top:12px">
+              Ultra-fast (≥100kW) stations represent a small but critical fraction —
+              these are IONITY-tier chargers enabling long-distance EV travel.
+            </p>
+          </div>
+
+          <!-- Map dots visual -->
+          <div class="analysis-block">
+            <h4>🗺️ Geographic Cluster Map</h4>
+            <div class="chart-area" style="min-height:200px;padding:0;overflow:hidden;">
+              <img src="porto/ev_charging_portfolio/outputs/03_cluster_map.png" alt="Geographic Cluster Map" style="width:100%;height:100%;object-fit:contain;border-radius:8px;">
+            </div>
+            <p style="margin-top:12px">
+              K-Means clustering (k=6) identifies regional infrastructure hubs
+              and charging deserts — areas with low ultra-fast penetration.
+              <a href="porto/ev_charging_portfolio/outputs/ev_charging_map.html" target="_blank" style="color:var(--accent);margin-left:8px;">→ View Interactive Map</a>
+            </p>
+          </div>
+        </div>
+
+        <div class="project-grid">
+          <div class="analysis-block">
+            <h4>🔍 Methodology</h4>
+            <p>
+              Data sourced from <strong style="color:var(--text)">Open Charge Map API</strong> (30,000+ stations).
+              Cleaned and parsed into structured CSV covering coordinates, operator,
+              power output, connection types, and operational status.<br/><br/>
+              K-Means clustering applied to lat/lon coordinates.
+              Optimal k selected via <strong style="color:var(--text)">elbow method</strong> and
+              <strong style="color:var(--text)">silhouette score</strong>.
+              Charging deserts defined as clusters with &lt;5% ultra-fast (≥100kW) penetration.
+            </p>
+          </div>
+          <div class="analysis-block">
+            <h4>💡 Business Relevance</h4>
+            <p>
+              This analysis directly mirrors how EV network operators like IONITY
+              plan infrastructure expansion:<br/><br/>
+              → Identify <strong style="color:var(--accent)">where gaps exist</strong> in ultra-fast coverage<br/>
+              → Quantify <strong style="color:var(--accent)">underserved regions</strong> by population and area<br/>
+              → Prioritise <strong style="color:var(--accent)">new station placement</strong> based on cluster data<br/>
+              → Track <strong style="color:var(--accent)">competitor coverage</strong> by operator
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- PROJECT 2
+      -->
+    <div class="project-card fade-in">
+      <div class="project-header">
+        <div>
+          <div class="project-num">Project 02 — Demand Forecasting</div>
+          <div class="project-title">EV Adoption Forecast (2025–2029)</div>
+          <div class="project-subtitle">How fast will EV demand grow — and which model predicts it best?</div>
+        </div>
+        <div class="project-tags">
+          <span class="tag red">Time-Series</span>
+          <span class="tag red">ARIMA</span>
+          <span class="tag red">Prophet</span>
+          <span class="tag">Linear Regression</span>
+          <span class="tag">Python</span>
+          <span class="tag">Power BI</span>
+        </div>
+      </div>
+      <div class="project-body">
+        <div class="project-grid">
+
+          <!-- Line chart visual -->
+          <div class="analysis-block">
+            <h4>📈 Forecast Comparison (2010–2029)</h4>
+            <div class="chart-area" style="min-height:200px;padding:0;overflow:hidden;">
+              <img src="porto_2/ev_charging_portfolio_2/outputs/02_forecast_comparison.png" alt="Forecast Comparison" style="width:100%;height:100%;object-fit:contain;border-radius:8px;">
+            </div>
+            <p style="margin-top:12px">
+              Three models compared on test set MAE. Prophet includes
+              confidence intervals — useful for infrastructure planning
+              under uncertainty.
+            </p>
+          </div>
+
+          <!-- Regional bar -->
+          <div class="analysis-block">
+            <h4>🗺️ Regional Adoption (Bundesland)</h4>
+            <div class="chart-area" style="min-height:200px;padding:0;overflow:hidden;">
+              <img src="porto_2/ev_charging_portfolio_2/outputs/04_regional_analysis.png" alt="Regional Adoption by Bundesland" style="width:100%;height:100%;object-fit:contain;border-radius:8px;">
+            </div>
+            <p style="margin-top:12px">
+              Bayern and Baden-Württemberg lead in absolute EV stock.
+              Eastern states show lower adoption per capita —
+              indicating potential growth markets.
+            </p>
+          </div>
+        </div>
+
+        <div class="project-grid">
+          <div class="analysis-block">
+            <h4>🔍 Methodology</h4>
+            <p>
+              Data sourced from <strong style="color:var(--text)">Kraftfahrtbundesamt (KBA)</strong>
+              and EAFO — official German vehicle registration data (2010–2024).<br/><br/>
+              Three models trained on 2010–2021 data, validated on 2022–2024:<br/>
+              → <strong style="color:var(--text)">Polynomial Linear Regression</strong> (degree=2)<br/>
+              → <strong style="color:var(--text)">ARIMA (1,1,1)</strong> — classical time series<br/>
+              → <strong style="color:var(--text)">Prophet</strong> — handles trend breaks, gives confidence intervals
+            </p>
+          </div>
+          <div class="analysis-block">
+            <h4>💡 Business Relevance</h4>
+            <p>
+              Demand forecasting is critical for IONITY's expansion strategy:<br/><br/>
+              → Predict <strong style="color:var(--accent2)">how many EVs</strong> will need charging by 2029<br/>
+              → Identify <strong style="color:var(--accent2)">which regions</strong> will see fastest growth<br/>
+              → Size <strong style="color:var(--accent2)">infrastructure investment</strong> accordingly<br/>
+              → Compare Germany vs EU peers on adoption trajectory
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROJECT COMPARISON TABLE -->
+<section id="findings" style="padding-top:0">
+  <div class="container">
+    <div class="section-tag">Summary</div>
+    <h2 class="section-title">Supply vs Demand.<br/>Two Lenses.</h2>
+
+    <table class="compare-table fade-in">
+      <thead>
+        <tr>
+          <th>Dimension</th>
+          <th>⚡ Project 1 — Infrastructure</th>
+          <th>📈 Project 2 — Forecasting</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Core question</td>
+          <td>Where is charging available today?</td>
+          <td>How fast will EV demand grow?</td>
+        </tr>
+        <tr>
+          <td>Data source</td>
+          <td>Open Charge Map API (30K+ stations)</td>
+          <td>KBA + EAFO (2010–2024)</td>
+        </tr>
+        <tr>
+          <td>Key method</td>
+          <td>K-Means Clustering (geospatial)</td>
+          <td>ARIMA + Prophet + Linear Regression</td>
+        </tr>
+        <tr>
+          <td>Main output</td>
+          <td>Cluster map + charging desert zones</td>
+          <td>Forecast 2025–2029 + model comparison</td>
+        </tr>
+        <tr>
+          <td>Business use</td>
+          <td>Where to build new stations?</td>
+          <td>How many stations will be needed?</td>
+        </tr>
+        <tr>
+          <td>Tools</td>
+          <td>Python, Scikit-learn, Folium, Power BI</td>
+          <td>Python, Prophet, Statsmodels, Power BI</td>
+        </tr>
+        <tr>
+          <td>Perspective</td>
+          <td>Supply side</td>
+          <td>Demand side</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <!-- Key findings -->
+    <div class="findings-grid fade-in">
+      <div class="finding-card p1">
+        <div class="finding-num">6</div>
+        <div class="finding-desc">Geographic clusters identified across Germany using K-Means — revealing distinct regional infrastructure patterns</div>
+      </div>
+      <div class="finding-card p1">
+        <div class="finding-num">&lt;5%</div>
+        <div class="finding-desc">Ultra-fast (≥100kW) penetration in charging desert zones — areas most in need of IONITY-grade infrastructure</div>
+      </div>
+      <div class="finding-card p3">
+        <div class="finding-num">524K</div>
+        <div class="finding-desc">New BEV registrations in Germany in 2023 — the data baseline for all three forecasting models</div>
+      </div>
+      <div class="finding-card p3">
+        <div class="finding-num">2029</div>
+        <div class="finding-desc">Forecast horizon — models project continued growth driven by EU mandate phasing out combustion engines by 2035</div>
+      </div>
+      <div class="finding-card both">
+        <div class="finding-num">7</div>
+        <div class="finding-desc">European countries covered — DE, AT, NL, FR, CH, PL, CZ — enabling cross-border infrastructure gap analysis</div>
+      </div>
+      <div class="finding-card both">
+        <div class="finding-num">3</div>
+        <div class="finding-desc">Forecast models compared on test MAE — giving decision-makers a range of scenarios from conservative to optimistic</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TECH STACK -->
+<section id="stack">
+  <div class="container">
+    <div class="section-tag">Tools</div>
+    <h2 class="section-title">Tech Stack</h2>
+    <p class="section-desc">Every tool chosen for a reason — from data ingestion to final dashboard.</p>
+
+    <div class="tech-grid fade-in">
+      <div class="tech-item">
+        <div class="tech-icon">🐍</div>
+        <div class="tech-name">Python</div>
+        <div class="tech-use">Core language</div>
+      </div>
+      <div class="tech-item">
+        <div class="tech-icon">🐼</div>
+        <div class="tech-name">Pandas</div>
+        <div class="tech-use">Data wrangling</div>
+      </div>
+      <div class="tech-item">
+        <div class="tech-icon">🤖</div>
+        <div class="tech-name">Scikit-learn</div>
+        <div class="tech-use">K-Means clustering</div>
+      </div>
+      <div class="tech-item">
+        <div class="tech-icon">📡</div>
+        <div class="tech-name">Prophet</div>
+        <div class="tech-use">Time-series forecast</div>
+      </div>
+      <div class="tech-item">
+        <div class="tech-icon">📊</div>
+        <div class="tech-name">Statsmodels</div>
+        <div class="tech-use">ARIMA model</div>
+      </div>
+      <div class="tech-item">
+        <div class="tech-icon">🗺️</div>
+        <div class="tech-name">Folium</div>
+        <div class="tech-use">Interactive maps</div>
+      </div>
+      <div class="tech-item">
+        <div class="tech-icon">📈</div>
+        <div class="tech-name">Matplotlib</div>
+        <div class="tech-use">Static charts</div>
+      </div>
+      <div class="tech-item">
+        <div class="tech-icon">💼</div>
+        <div class="tech-name">Power BI</div>
+        <div class="tech-use">BI dashboard</div>
+      </div>
+      <div class="tech-item">
+        <div class="tech-icon">☁️</div>
+        <div class="tech-name">Open Charge Map</div>
+        <div class="tech-use">EV station API</div>
+      </div>
+      <div class="tech-item">
+        <div class="tech-icon">🏛️</div>
+        <div class="tech-name">KBA / EAFO</div>
+        <div class="tech-use">Registration data</div>
+      </div>
+      <div class="tech-item">
+        <div class="tech-icon">🐙</div>
+        <div class="tech-name">GitHub</div>
+        <div class="tech-use">Version control</div>
+      </div>
+      <div class="tech-item">
+        <div class="tech-icon">🌐</div>
+        <div class="tech-name">GitHub Pages</div>
+        <div class="tech-use">Portfolio hosting</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="container">
+    <div class="section-tag">About</div>
+    <div class="about-grid fade-in">
+      <div>
+        <h2 class="section-title">Nisrina<br/>Walyadin</h2>
+        <p style="color:var(--muted);font-size:13px;line-height:1.9;margin-bottom:24px">
+          MSc Mathematics — Technical University of Munich.<br/>
+          Data analyst with experience in geospatial analytics,
+          forecasting, and BI dashboard development across
+          retail (NKD Group, 7 European markets) and financial
+          services (HypoVereinsbank / UniCredit).<br/><br/>
+          Research background in urban mobility data (TU Munich
+          Transportation Department) — modelling travel demand
+          patterns across Madrid and Paris.<br/><br/>
+          Passionate about applying data science to the
+          energy transition and EV infrastructure challenge.
+        </p>
+        <div class="contact-links">
+          <a href="mailto:nisrinawalyadin@gmail.com" class="contact-link">
+            <span class="contact-icon">✉</span>
+            nisrinawalyadin@gmail.com
+          </a>
+          <a href="https://linkedin.com/in/nisrina-walyadin-5b7345178" target="_blank" class="contact-link">
+            <span class="contact-icon">💼</span>
+            linkedin.com/in/nisrina-walyadin
+          </a>
+          <a href="https://github.com/nisrinawalyadin" target="_blank" class="contact-link">
+            <span class="contact-icon">🐙</span>
+            github.com/nisrinawalyadin
+          </a>
+        </div>
+      </div>
+      <div>
+        <p style="color:var(--muted);font-size:11px;letter-spacing:2px;text-transform:uppercase;margin-bottom:20px">Core Skills</p>
+        <div class="skill-list">
+          <div class="skill-row">
+            <div class="skill-name">Python (Pandas, Scikit-learn)</div>
+            <div class="skill-bar-bg">
+              <div class="skill-bar-fill" style="width:88%;background:var(--accent);animation-delay:0.1s"></div>
+            </div>
+          </div>
+          <div class="skill-row">
+            <div class="skill-name">SQL</div>
+            <div class="skill-bar-bg">
+              <div class="skill-bar-fill" style="width:78%;background:var(--accent);animation-delay:0.2s"></div>
+            </div>
+          </div>
+          <div class="skill-row">
+            <div class="skill-name">Power BI / Data Visualisation</div>
+            <div class="skill-bar-bg">
+              <div class="skill-bar-fill" style="width:82%;background:var(--accent);animation-delay:0.3s"></div>
+            </div>
+          </div>
+          <div class="skill-row">
+            <div class="skill-name">Machine Learning (Clustering, Forecasting)</div>
+            <div class="skill-bar-bg">
+              <div class="skill-bar-fill" style="width:75%;background:var(--accent);animation-delay:0.4s"></div>
+            </div>
+          </div>
+          <div class="skill-row">
+            <div class="skill-name">Geospatial Analytics</div>
+            <div class="skill-bar-bg">
+              <div class="skill-bar-fill" style="width:70%;background:var(--accent);animation-delay:0.5s"></div>
+            </div>
+          </div>
+          <div class="skill-row">
+            <div class="skill-name">ETL & Data Pipeline Design</div>
+            <div class="skill-bar-bg">
+              <div class="skill-bar-fill" style="width:72%;background:var(--accent);animation-delay:0.6s"></div>
+            </div>
+          </div>
+        </div>
+
+        <div style="margin-top:40px;padding:24px;border:1px solid var(--border);border-radius:4px;border-left:3px solid var(--accent3)">
+          <p style="font-size:11px;color:var(--muted);letter-spacing:1px;text-transform:uppercase;margin-bottom:8px">Languages</p>
+          <div style="display:flex;gap:12px;flex-wrap:wrap">
+            <span style="color:var(--text);font-size:12px">🇬🇧 English (C1)</span>
+            <span style="color:var(--muted);font-size:12px">🇩🇪 German (B1→B2)</span>
+            <span style="color:var(--muted);font-size:12px">🇮🇩 Indonesian (Native)</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  <div class="container">
+    <p>Nisrina Afnan Walyadin · MSc Mathematics, TU Munich · nisrinawalyadin@gmail.com</p>
+    <p style="margin-top:8px;opacity:0.5">Built for IONITY application · Data: Open Charge Map, KBA, EAFO · 2026</p>
+  </div>
+</footer>
+
+<script>
+  // Scroll-triggered fade-in
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(el => {
+      if (el.isIntersecting) {
+        el.target.classList.add('visible');
+      }
+    });
+  }, { threshold: 0.1 });
+
+  document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+
+  // Animated counter for stats
+  function animateCounter(el, target, suffix = '') {
+    let current = 0;
+    const increment = target / 60;
+    const timer = setInterval(() => {
+      current += increment;
+      if (current >= target) {
+        current = target;
+        clearInterval(timer);
+      }
+      el.textContent = Math.floor(current).toLocaleString() + suffix;
+    }, 16);
+  }
+
+  const statsObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        const nums = entry.target.querySelectorAll('.stat-num');
+        nums[0] && animateCounter(nums[0], 30, 'K+');
+        nums[1] && animateCounter(nums[1], 7);
+        nums[2] && animateCounter(nums[2], 3);
+        statsObserver.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.5 });
+
+  const statsBar = document.querySelector('.stats-bar');
+  if (statsBar) statsObserver.observe(statsBar);
+</script>
+</body>
+</html>
