@@ -589,8 +589,25 @@
           <!-- Chart: speed distribution -->
           <div class="analysis-block">
             <h4>⚡ Charger Speed Distribution</h4>
-            <div class="chart-area" style="min-height:200px;padding:0;overflow:hidden;">
-              <img src="porto/ev_charging_portfolio/outputs/01_eda_overview.png" alt="Charger Speed Distribution" style="width:100%;height:100%;object-fit:contain;border-radius:8px;">
+            <div class="chart-area" style="min-height:200px;">
+              <div class="bar-chart">
+                <div class="bar-group">
+                  <div class="bar" style="height:45%;background:linear-gradient(to top,#6B7FA3,#457B9D);animation-delay:0.1s"></div>
+                  <div class="bar-label">Slow</div>
+                </div>
+                <div class="bar-group">
+                  <div class="bar" style="height:70%;background:linear-gradient(to top,#2A9D8F,#00E5FF);animation-delay:0.2s"></div>
+                  <div class="bar-label">Medium</div>
+                </div>
+                <div class="bar-group">
+                  <div class="bar" style="height:55%;background:linear-gradient(to top,#F4A261,#FFD166);animation-delay:0.3s"></div>
+                  <div class="bar-label">Fast</div>
+                </div>
+                <div class="bar-group">
+                  <div class="bar" style="height:20%;background:linear-gradient(to top,#E63946,#FF3D57);animation-delay:0.4s"></div>
+                  <div class="bar-label">Ultra</div>
+                </div>
+              </div>
             </div>
             <p style="margin-top:12px">
               Ultra-fast (≥100kW) stations represent a small but critical fraction —
@@ -601,13 +618,32 @@
           <!-- Map dots visual -->
           <div class="analysis-block">
             <h4>🗺️ Geographic Cluster Map</h4>
-            <div class="chart-area" style="min-height:200px;padding:0;overflow:hidden;">
-              <img src="porto/ev_charging_portfolio/outputs/03_cluster_map.png" alt="Geographic Cluster Map" style="width:100%;height:100%;object-fit:contain;border-radius:8px;">
+            <div class="chart-area" style="min-height:200px;">
+              <div class="map-visual">
+                <!-- Simulated Germany station dots -->
+                <div class="map-dot" style="width:6px;height:6px;background:#00E5FF;top:20%;left:48%;animation-delay:0s"></div>
+                <div class="map-dot" style="width:10px;height:10px;background:#00E5FF;opacity:0.6;top:35%;left:35%;animation-delay:0.3s"></div>
+                <div class="map-dot" style="width:8px;height:8px;background:#00E5FF;top:30%;left:55%;animation-delay:0.6s"></div>
+                <div class="map-dot" style="width:12px;height:12px;background:#2A9D8F;opacity:0.7;top:55%;left:42%;animation-delay:0.9s"></div>
+                <div class="map-dot" style="width:6px;height:6px;background:#FF3D57;top:40%;left:65%;animation-delay:0.2s"></div>
+                <div class="map-dot" style="width:8px;height:8px;background:#2A9D8F;top:60%;left:28%;animation-delay:0.5s"></div>
+                <div class="map-dot" style="width:6px;height:6px;background:#00E5FF;top:70%;left:50%;animation-delay:0.8s"></div>
+                <div class="map-dot" style="width:14px;height:14px;background:#39FF8F;opacity:0.5;top:45%;left:48%;animation-delay:1s"></div>
+                <div class="map-dot" style="width:6px;height:6px;background:#FF3D57;top:25%;left:72%;animation-delay:0.4s"></div>
+                <div class="map-dot" style="width:8px;height:8px;background:#2A9D8F;top:75%;left:38%;animation-delay:0.7s"></div>
+                <div class="map-dot" style="width:6px;height:6px;background:#00E5FF;top:15%;left:60%;animation-delay:1.1s"></div>
+                <div class="map-dot" style="width:10px;height:10px;background:#FF3D57;opacity:0.6;top:80%;left:60%;animation-delay:0.1s"></div>
+                <!-- Legend -->
+                <div style="position:absolute;bottom:0;right:0;font-size:9px;color:var(--muted);display:flex;flex-direction:column;gap:4px">
+                  <span style="color:#00E5FF">● Cluster Hub</span>
+                  <span style="color:#FF3D57">● Desert Zone</span>
+                  <span style="color:#39FF8F">● Ultra-Fast</span>
+                </div>
+              </div>
             </div>
             <p style="margin-top:12px">
               K-Means clustering (k=6) identifies regional infrastructure hubs
               and charging deserts — areas with low ultra-fast penetration.
-              <a href="porto/ev_charging_portfolio/outputs/ev_charging_map.html" target="_blank" style="color:var(--accent);margin-left:8px;">→ View Interactive Map</a>
             </p>
           </div>
         </div>
@@ -667,8 +703,45 @@
           <!-- Line chart visual -->
           <div class="analysis-block">
             <h4>📈 Forecast Comparison (2010–2029)</h4>
-            <div class="chart-area" style="min-height:200px;padding:0;overflow:hidden;">
-              <img src="porto_2/ev_charging_portfolio_2/outputs/02_forecast_comparison.png" alt="Forecast Comparison" style="width:100%;height:100%;object-fit:contain;border-radius:8px;">
+            <div class="chart-area" style="min-height:200px;">
+              <svg class="line-chart" viewBox="0 0 400 160" xmlns="http://www.w3.org/2000/svg">
+                <!-- Grid lines -->
+                <line x1="0" y1="40"  x2="400" y2="40"  stroke="rgba(255,255,255,0.05)" stroke-width="1"/>
+                <line x1="0" y1="80"  x2="400" y2="80"  stroke="rgba(255,255,255,0.05)" stroke-width="1"/>
+                <line x1="0" y1="120" x2="400" y2="120" stroke="rgba(255,255,255,0.05)" stroke-width="1"/>
+                <!-- Train/test split -->
+                <line x1="260" y1="0" x2="260" y2="160" stroke="rgba(255,255,255,0.15)" stroke-width="1" stroke-dasharray="4,4"/>
+                <text x="265" y="12" fill="rgba(255,255,255,0.3)" font-size="9">forecast →</text>
+                <!-- Actual line -->
+                <polyline points="20,155 50,150 80,148 110,142 140,130 170,110 200,70 230,30 260,25"
+                  fill="none" stroke="#2A9D8F" stroke-width="2.5"/>
+                <!-- Linear regression forecast -->
+                <polyline points="260,25 290,20 320,15 350,10 380,8"
+                  fill="none" stroke="#E63946" stroke-width="1.5" stroke-dasharray="5,3"/>
+                <!-- ARIMA forecast -->
+                <polyline points="260,25 290,32 320,28 350,22 380,18"
+                  fill="none" stroke="#F4A261" stroke-width="1.5" stroke-dasharray="5,3"/>
+                <!-- Prophet forecast with band -->
+                <polygon points="260,25 290,18 320,12 350,8 380,5 380,20 350,25 320,30 290,32 260,35"
+                  fill="rgba(69,123,157,0.15)"/>
+                <polyline points="260,25 290,22 320,18 350,14 380,11"
+                  fill="none" stroke="#457B9D" stroke-width="1.5" stroke-dasharray="5,3"/>
+                <!-- Dots on actual -->
+                <circle cx="260" cy="25" r="4" fill="#2A9D8F"/>
+                <!-- Labels -->
+                <text x="22" y="155" fill="#6B7FA3" font-size="8">2010</text>
+                <text x="240" y="155" fill="#6B7FA3" font-size="8">2024</text>
+                <text x="370" y="155" fill="#6B7FA3" font-size="8">2029</text>
+                <!-- Legend -->
+                <line x1="20" y1="15" x2="45" y2="15" stroke="#2A9D8F" stroke-width="2"/>
+                <text x="48" y="19" fill="#6B7FA3" font-size="8">Actual</text>
+                <line x1="95" y1="15" x2="120" y2="15" stroke="#E63946" stroke-width="1.5" stroke-dasharray="4,2"/>
+                <text x="123" y="19" fill="#6B7FA3" font-size="8">LinReg</text>
+                <line x1="170" y1="15" x2="195" y2="15" stroke="#F4A261" stroke-width="1.5" stroke-dasharray="4,2"/>
+                <text x="198" y="19" fill="#6B7FA3" font-size="8">ARIMA</text>
+                <line x1="240" y1="15" x2="265" y2="15" stroke="#457B9D" stroke-width="1.5" stroke-dasharray="4,2"/>
+                <text x="268" y="19" fill="#6B7FA3" font-size="8">Prophet</text>
+              </svg>
             </div>
             <p style="margin-top:12px">
               Three models compared on test set MAE. Prophet includes
@@ -680,8 +753,41 @@
           <!-- Regional bar -->
           <div class="analysis-block">
             <h4>🗺️ Regional Adoption (Bundesland)</h4>
-            <div class="chart-area" style="min-height:200px;padding:0;overflow:hidden;">
-              <img src="porto_2/ev_charging_portfolio_2/outputs/04_regional_analysis.png" alt="Regional Adoption by Bundesland" style="width:100%;height:100%;object-fit:contain;border-radius:8px;">
+            <div class="chart-area" style="min-height:200px;">
+              <div class="bar-chart" style="height:140px">
+                <div class="bar-group">
+                  <div class="bar" style="height:100%;background:linear-gradient(to top,#E63946,#FF6B7A);animation-delay:0.1s"></div>
+                  <div class="bar-label">BY</div>
+                </div>
+                <div class="bar-group">
+                  <div class="bar" style="height:87%;background:linear-gradient(to top,#F4A261,#FFD166);animation-delay:0.15s"></div>
+                  <div class="bar-label">BW</div>
+                </div>
+                <div class="bar-group">
+                  <div class="bar" style="height:83%;background:linear-gradient(to top,#F4A261,#FFD166);animation-delay:0.2s"></div>
+                  <div class="bar-label">NW</div>
+                </div>
+                <div class="bar-group">
+                  <div class="bar" style="height:43%;background:linear-gradient(to top,#2A9D8F,#00E5FF);animation-delay:0.25s"></div>
+                  <div class="bar-label">NI</div>
+                </div>
+                <div class="bar-group">
+                  <div class="bar" style="height:38%;background:linear-gradient(to top,#2A9D8F,#00E5FF);animation-delay:0.3s"></div>
+                  <div class="bar-label">HE</div>
+                </div>
+                <div class="bar-group">
+                  <div class="bar" style="height:26%;background:linear-gradient(to top,#457B9D,#6B9FD4);animation-delay:0.35s"></div>
+                  <div class="bar-label">BE</div>
+                </div>
+                <div class="bar-group">
+                  <div class="bar" style="height:17%;background:linear-gradient(to top,#457B9D,#6B9FD4);animation-delay:0.4s"></div>
+                  <div class="bar-label">SN</div>
+                </div>
+                <div class="bar-group">
+                  <div class="bar" style="height:9%;background:linear-gradient(to top,#6B7FA3,#8A9FBF);animation-delay:0.45s"></div>
+                  <div class="bar-label">ST</div>
+                </div>
+              </div>
             </div>
             <p style="margin-top:12px">
               Bayern and Baden-Württemberg lead in absolute EV stock.
